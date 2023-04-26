@@ -1,1 +1,0 @@
-/home/guilleaq/ros2/nav2_ws/src/start_robocup/build/start_robocup/ament_cmake_export_include_directories/ament_cmake_export_include_directories-extras.cmake
