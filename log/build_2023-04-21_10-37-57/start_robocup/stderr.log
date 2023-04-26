@@ -1,0 +1,40 @@
+[31mCMake Error at CMakeLists.txt:44 (add_library):
+  Cannot find source file:
+
+    src/br2_bt_patrolling/Move.cpp
+
+  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .mpp .m .M .mm .ixx .cppm .h
+  .hh .h++ .hm .hpp .hxx .in .txx .f .F .for .f77 .f90 .f95 .f03 .hip .ispc
+
+[0m
+[31mCMake Error at CMakeLists.txt:45 (add_library):
+  Cannot find source file:
+
+    src/br2_bt_patrolling/GetWaypoint.cpp
+
+  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .mpp .m .M .mm .ixx .cppm .h
+  .hh .h++ .hm .hpp .hxx .in .txx .f .F .for .f77 .f90 .f95 .f03 .hip .ispc
+
+[0m
+[31mCMake Error at CMakeLists.txt:56 (add_executable):
+  Cannot find source file:
+
+    src/patrolling_main.cpp
+
+  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .mpp .m .M .mm .ixx .cppm .h
+  .hh .h++ .hm .hpp .hxx .in .txx .f .F .for .f77 .f90 .f95 .f03 .hip .ispc
+
+[0m
+[31mCMake Error at CMakeLists.txt:44 (add_library):
+  No SOURCES given to target: br2_move_bt_node
+
+[0m
+[31mCMake Error at CMakeLists.txt:45 (add_library):
+  No SOURCES given to target: br2_get_waypoint_bt_node
+
+[0m
+[31mCMake Error at CMakeLists.txt:56 (add_executable):
+  No SOURCES given to target: patrolling_main
+
+[0m
+[0mCMake Generate step failed.  Build files cannot be regenerated correctly.[0m

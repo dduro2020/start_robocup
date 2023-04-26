@@ -1,0 +1,38 @@
+[35m[1mConsolidate compiler generated dependencies of target patrolling_main[0m
+[35m[1mConsolidate compiler generated dependencies of target br2_get_waypoint_bt_node[0m
+[ 16%] [32mBuilding CXX object CMakeFiles/br2_move_bt_node.dir/src/navigation/br2_bt_patrolling/Move.cpp.o[0m
+[ 50%] Built target patrolling_main
+[ 83%] Built target br2_get_waypoint_bt_node
+[100%] [32m[1mLinking CXX shared library libbr2_move_bt_node.so[0m
+[100%] Built target br2_move_bt_node
+-- Install configuration: "Debug"
+-- Execute custom install script
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/lib/libbr2_move_bt_node.so
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/lib/libbr2_get_waypoint_bt_node.so
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/lib/start_robocup/patrolling_main
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/include//navigation/br2_bt_patrolling/GetWaypoint.hpp
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/include//navigation/br2_bt_patrolling/Move.hpp
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/include//navigation/br2_bt_patrolling/ctrl_support/BTActionNode.hpp
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/include//navigation/br2_bt_patrolling/ctrl_support/BTLifecycleCtrlNode.hpp
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/include//perception_asr/DarknetDetectionNode.hpp
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/include//perception_asr/DetectionTo3DfromDepthNode.hpp
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/include//tf2_detector/PersonDetectorImprovedNode.hpp
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/share/start_robocup/behavior_tree_xml/patrolling.xml
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/share/start_robocup/launch/patrolling.launch.py
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/share/ament_index/resource_index/package_run_dependencies/start_robocup
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/share/ament_index/resource_index/parent_prefix_path/start_robocup
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/share/start_robocup/environment/ament_prefix_path.sh
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/share/start_robocup/environment/ament_prefix_path.dsv
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/share/start_robocup/environment/path.sh
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/share/start_robocup/environment/path.dsv
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/share/start_robocup/local_setup.bash
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/share/start_robocup/local_setup.sh
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/share/start_robocup/local_setup.zsh
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/share/start_robocup/local_setup.dsv
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/share/start_robocup/package.dsv
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/share/ament_index/resource_index/packages/start_robocup
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/share/start_robocup/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/share/start_robocup/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/share/start_robocup/cmake/start_robocupConfig.cmake
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/share/start_robocup/cmake/start_robocupConfig-version.cmake
+-- Symlinking: /home/guilleaq/ros2/nav2_ws/src/start_robocup/install/start_robocup/share/start_robocup/package.xml

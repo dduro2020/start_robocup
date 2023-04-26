@@ -1,34 +1,21 @@
-cmake_minimum_required(VERSION 3.8)
-project(seekandcapture_cibernots)
+cmake_minimum_required(VERSION 3.5)
+project(start_robocup)
+
+set(CMAKE_BUILD_TYPE Debug)
 
 set(CMAKE_CONFIG_PATH ${CMAKE_MODULE_PATH}  "${CMAKE_CURRENT_LIST_DIR}/cmake")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CONFIG_PATH}")
 
-if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
-endif()
-
-# find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(sensor_msgs REQUIRED)
-find_package(vision_msgs REQUIRED)
-find_package(darknet_ros_msgs REQUIRED)
-find_package(image_transport REQUIRED)
-find_package(cv_bridge REQUIRED)
-find_package(message_filters REQUIRED)
-find_package(pcl_conversions REQUIRED)
-find_package(pcl_ros REQUIRED)
-find_package(image_geometry REQUIRED)
-find_package(depth_image_proc REQUIRED)
-find_package(tf2_ros REQUIRED)
-find_package(tf2_geometry_msgs REQUIRED)
+find_package(rclcpp_lifecycle REQUIRED)
+find_package(rclcpp_action REQUIRED)
 find_package(behaviortree_cpp_v3 REQUIRED)
-find_package(kobuki_ros_interfaces REQUIRED)
-find_package(control_msgs REQUIRED)
-find_package(std_msgs REQUIRED)
-
-find_package(OpenCV REQUIRED)
+find_package(action_msgs REQUIRED)
+find_package(lifecycle_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(nav2_msgs REQUIRED)
+find_package(ament_index_cpp REQUIRED)
 
 find_package(ZMQ)
 if(ZMQ_FOUND)
@@ -38,48 +25,27 @@ else()
   message(WARNING "ZeroMQ NOT found. Not including PublisherZMQ.")
 endif()
 
-include_directories(include)
-include_directories(include ${ZMQ_INCLUDE_DIRS})
+set(CMAKE_CXX_STANDARD 17)
 
 set(dependencies
-  rclcpp
-  sensor_msgs
-  vision_msgs
-  darknet_ros_msgs
-  image_transport
-  cv_bridge
-  OpenCV
-  message_filters
-  pcl_conversions
-  pcl_ros
-  image_geometry
-  depth_image_proc
-  tf2_ros
-  tf2_geometry_msgs
-  behaviortree_cpp_v3
-  control_msgs
-  kobuki_ros_interfaces
-  std_msgs
+    rclcpp
+    rclcpp_lifecycle
+    rclcpp_action
+    behaviortree_cpp_v3
+    action_msgs
+    lifecycle_msgs
+    geometry_msgs
+    nav2_msgs
+    ament_index_cpp
 )
 
-add_library(${PROJECT_NAME} SHARED
-  src/perception_asr/DarknetDetectionNode.cpp
-  src/perception_asr/DetectionTo3DfromDepthNode.cpp
-  src/tf2_detector/PersonDetectorImprovedNode.cpp
-  src/pid/PIDController.cpp
-)
-ament_target_dependencies(${PROJECT_NAME} ${dependencies})
+include_directories(include ${ZMQ_INCLUDE_DIRS})
 
-add_library(bt_followPerson_node SHARED src/bt_nodes/FollowPerson.cpp src/pid/PIDController.cpp)
-add_library(bt_detectPerson_node SHARED src/bt_nodes/DetectPerson.cpp)
-add_library(bt_reachedPerson_node SHARED src/bt_nodes/ReachedPerson.cpp)
-add_library(bt_searchPerson_node SHARED src/bt_nodes/SearchPerson.cpp)
-
+add_library(br2_move_bt_node SHARED src/navigation/br2_bt_patrolling/Move.cpp)
+add_library(br2_get_waypoint_bt_node SHARED src/navigation/br2_bt_patrolling/GetWaypoint.cpp)
 list(APPEND plugin_libs
-  bt_followPerson_node
-  bt_detectPerson_node
-  bt_reachedPerson_node
-  bt_searchPerson_node
+  br2_move_bt_node
+  br2_get_waypoint_bt_node
 )
 
 foreach(bt_plugin ${plugin_libs})
@@ -87,29 +53,13 @@ foreach(bt_plugin ${plugin_libs})
   target_compile_definitions(${bt_plugin} PRIVATE BT_PLUGIN_EXPORT)
 endforeach()
 
-add_executable(darknet_detection_tf src/darknet_detection_main.cpp)
-ament_target_dependencies(darknet_detection_tf ${dependencies})
-target_link_libraries(darknet_detection_tf ${PROJECT_NAME})
-
-add_executable(seekandcapture src/bt_seekandcapture.cpp)
-ament_target_dependencies(seekandcapture ${dependencies})
-target_link_libraries(seekandcapture ${ZMQ_LIBRARIES})
-
-add_executable(detection_2d_to_3d_depth_tf src/detection_2d_to_3d_depth_main.cpp)
-ament_target_dependencies(detection_2d_to_3d_depth_tf ${dependencies})
-target_link_libraries(detection_2d_to_3d_depth_tf ${PROJECT_NAME})
-
-add_executable(imageperson_tf src/detector_improved_main.cpp)
-ament_target_dependencies(imageperson_tf ${dependencies})
-target_link_libraries(imageperson_tf ${PROJECT_NAME})
+add_executable(patrolling_main src/navigation/patrolling_main.cpp)
+ament_target_dependencies(patrolling_main ${dependencies})
+target_link_libraries(patrolling_main ${ZMQ_LIBRARIES})
 
 install(TARGETS
-  ${PROJECT_NAME}
   ${plugin_libs}
-  seekandcapture
-  darknet_detection_tf
-  detection_2d_to_3d_depth_tf
-  imageperson_tf
+  patrolling_main
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}
@@ -119,26 +69,24 @@ install(DIRECTORY include/
   DESTINATION include/
 )
 
-install(DIRECTORY behavior_tree_xml
+install(DIRECTORY behavior_tree_xml launch
   DESTINATION share/${PROJECT_NAME}
 )
 
-install(DIRECTORY launch DESTINATION share/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
-  # the following line skips the linter which checks for copyrights
-  # comment the line when a copyright and license is added to all source files
-  set(ament_cmake_copyright_FOUND TRUE)
-  # the following line skips cpplint (only works in a git repo)
-  # comment the line when this package is in a git repo and when
-  # a copyright and license is added to all source files
+  ament_lint_auto_find_test_dependencies()
+
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
+
+  find_package(ament_cmake_gtest REQUIRED)
+
+  # add_subdirectory(tests)
 endif()
 
 ament_export_include_directories(include)
-ament_export_libraries(${PROJECT_NAME})
 ament_export_dependencies(${dependencies})
-ament_package()
 
+ament_package()
